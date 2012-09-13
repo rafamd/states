@@ -1,0 +1,52 @@
+<?php
+function states_enable() {
+  // Check if our field is not already created.
+  if (!field_info_field('field_measure_system')) {
+    $field = array(
+      'field_name' => 'field_measure_system',
+      'type' => 'list_text',
+      'settings' => array(
+        'allowed_values' => array(
+          'US' => 'US',
+          'METRIC' => 'METRIC',
+          'UK' => 'UK',
+        ),
+      ),
+    );
+    field_create_field($field);
+
+    // Create the instance on the bundle.
+    $instance = array(
+      'field_name' => 'field_measure_system',
+      'entity_type' => 'user',
+      'label' => 'Measure system',
+      'bundle' => 'user',
+      'required' => TRUE,
+      'settings' => array(
+        'user_register_form' => TRUE,
+      ),
+      'default_value' => array(
+        0 => array(
+          'value' => 'METRIC',
+        ),
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 0,
+        ),
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '7',
+      ),
+    );
+    field_create_instance($instance);
+  }
+}

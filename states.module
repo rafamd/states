@@ -1,0 +1,44 @@
+<?php
+
+function states_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id == 'user_register_form' || $form_id == 'user_profile_form') {
+    $form['preff_information'] = array(
+      '#markup' => '<div class="Preferred_measure_tabs"><a class="tab-us">US</a><a class="tab-metric">Metric</a><a class="tab-uk">UK</a></div>',
+      '#weight' => '4',
+    );
+
+    $form['field_weight_lb'] = array(
+      '#states' => array(
+        'visible' => array(
+          ':input[name="field_measure_system[und]"]' => array('value' => 'UK'),
+        ),
+      ),
+    );
+
+    $form['height_feet'] = array(
+      '#type' => 'select',
+      '#title' => 'Height',
+      '#weight' => '7',
+      '#required' => '0',
+      '#default_value' => '',
+      '#options' => array(
+        '0' => t(''),
+        '4' => t('4'),
+        '5' => t('5'),
+        '6' => t('6'),
+        '7' => t('7'),
+      ),
+      '#field_suffix' => 'ft',
+      '#states' => array(
+        'invisible' => array(
+          ':input[name="field_measure_system[und]"]' => array('value' => 'METRIC'),
+        ),
+      ),
+    );
+
+
+
+  }
+}
+

@@ -1,0 +1,5 @@
+name = States
+description = Test module
+core = 7.x
+scripts[] = states.js
+
